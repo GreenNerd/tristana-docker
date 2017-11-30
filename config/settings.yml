@@ -1,0 +1,27 @@
+defaults: &defaults
+  sms:
+    template_code:
+      verify_code: <%= ENV['SETTING_TEMPLATE_CODE_VERIFY_CODE'] %>
+      reservation: <%= ENV['SETTING_TEMPLATE_CODE_RESERVATION'] %>
+    sign_name: <%= ENV['SETTING_SIGN_NAME'] %>
+  aliyun:
+    access_key_id: <%= ENV['SETTING_ALIYUN_ACCESS_KEY_ID'] %>
+    access_key_secret: <%= ENV['SETTING_ALIYUN_ACCESS_KEY_SECRET'] %>
+  juhe:
+    app_key: <%= ENV['SETTING_JUHE_APP_KEY'] %>
+  oauth2:
+    site: <%= ENV['OAUTH2_SITE'] %>
+    _ns_id: <%= ENV['OAUTH2__NS_ID'] %>
+  omniauth:
+    skylark:
+      key: <%= ENV['OMNIAUTH_SKYLARK_KEY'] %>
+      secret: <%= ENV['OMNIAUTH_SKYLARK_SECRET'] %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

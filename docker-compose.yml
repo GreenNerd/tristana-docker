@@ -1,0 +1,61 @@
+version: '3'
+services:
+  db:
+    container_name: 'slp_postgresql'
+    image: postgres:9.5-alpine
+    env_file:
+      - app.default.env
+      - app.local.env
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
+    expose:
+      - '5432'
+
+  redis:
+    container_name: 'slp_redis'
+    image: redis:3.2-alpine
+    volumes:
+      - ./data/redis:/data
+    expose:
+      - '6379'
+
+  web:
+    container_name: 'slp_web'
+    image: need_set
+    env_file:
+      - app.default.env
+      - app.local.env
+    depends_on:
+      - app
+    command: nginx -c /etc/nginx/nginx.conf
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/tristana.conf:/etc/nginx/conf.d/tristana.conf
+      - ./tmp/pids:/var/www/pids
+      - ./log:/var/www/log
+      - ./shared/public:/var/www/tristana/public
+    ports:
+      - '80:80'
+      - '443:443'
+
+  app: &app_base
+    image: need_set
+    env_file:
+      - app.default.env
+      - app.local.env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./config/database.yml:/var/www/tristana/config/database.yml
+      - ./config/puma.rb:/var/www/tristana/config/puma.rb
+      - ./config/redis.yml:/var/www/tristana/config/redis.yml
+      - ./config/secrets.yml:/var/www/tristana/config/secrets.yml
+      - ./config/settings.yml:/var/www/tristana/config/settings.yml
+      - ./shared/public/assets:/var/www/tristana/public/assets
+      - ./tmp:/var/www/tristana/tmp
+      - ./log:/var/www/tristana/log
+      - ./tmp/pids:/var/www/pids
+    command: bundle exec puma -C config/puma.rb
+    expose:
+      - '3000'

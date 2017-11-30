@@ -1,0 +1,7 @@
+data/
+log/
+shared/
+tmp/
+images/production/tristana/*
+
+app.local.env

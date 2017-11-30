@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV['POSTGRES_POOL'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+
+development:
+  <<: *default
+  database: tristana_development
+
+test:
+  <<: *default
+  database: tristana_test
+
+production:
+  <<: *default
+  database: tristana_production

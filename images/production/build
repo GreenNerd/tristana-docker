@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+echo "Building the production image"
+docker build -t tristana/production:0.0.1 .
