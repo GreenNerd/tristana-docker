@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    container_name: 'slp_postgresql'
+    container_name: 'tristana_postgresql'
     image: postgres:9.5-alpine
     env_file:
       - app.default.env
@@ -12,7 +12,7 @@ services:
       - '5432'
 
   redis:
-    container_name: 'slp_redis'
+    container_name: 'tristana_redis'
     image: redis:3.2-alpine
     volumes:
       - ./data/redis:/data
@@ -20,8 +20,8 @@ services:
       - '6379'
 
   web:
-    container_name: 'slp_web'
-    image: need_set
+    container_name: 'tristana_web'
+    image: tristana/production:0.0.1
     env_file:
       - app.default.env
       - app.local.env
@@ -39,7 +39,7 @@ services:
       - '443:443'
 
   app: &app_base
-    image: need_set
+    image: tristana/production:0.0.1
     env_file:
       - app.default.env
       - app.local.env
