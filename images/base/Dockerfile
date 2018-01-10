@@ -19,7 +19,12 @@ RUN apt-get -y install curl \
                        libssl-dev libreadline-dev zlib1g-dev \
                        nodejs \
                        nginx \
-                       tzdata
+                       tzdata \
+                       locales
+
+RUN locale-gen en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 ENV RUBY_BUILD_MIRROR_URL=https://cache.ruby-china.org
 RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc && \
