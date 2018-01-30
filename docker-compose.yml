@@ -33,7 +33,6 @@ services:
       - ./etc/nginx/tristana.conf:/etc/nginx/conf.d/tristana.conf
       - ./tmp/pids:/var/www/pids
       - ./log:/var/www/log
-      - ./shared/public:/var/www/tristana/public
     ports:
       - '80:80'
       - '443:443'
@@ -52,10 +51,10 @@ services:
       - ./config/redis.yml:/var/www/tristana/config/redis.yml
       - ./config/secrets.yml:/var/www/tristana/config/secrets.yml
       - ./config/settings.yml:/var/www/tristana/config/settings.yml
-      - ./shared/public/assets:/var/www/tristana/public/assets
       - ./tmp:/var/www/tristana/tmp
       - ./log:/var/www/tristana/log
       - ./tmp/pids:/var/www/pids
+      - ./shared/uploads:/var/www/tristana/uploads
     command: bundle exec puma -C config/puma.rb
     expose:
       - '3000'

@@ -14,4 +14,9 @@ RUN chown -R tristana:tristana /var/www/tristana
 
 COPY tristana /var/www/tristana
 
+RUN bundle config mirror.https://rubygems.org https://gems.ruby-china.org && \
+    bundle install --deployment --without test development -j4 && \
+    find /var/www/tristana/vendor/bundle -name tmp -type d -exec rm -rf {} +
+
+RUN rm -rf /var/www/tristana/tmp/*
 USER root

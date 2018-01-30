@@ -3,3 +3,4 @@ set -e
 
 echo "Building the production image"
 docker build -t dockerhub.qingcloud.com/tristana/production:$VERSION .
+docker push dockerhub.qingcloud.com/tristana/production:$VERSION
