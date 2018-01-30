@@ -21,7 +21,7 @@ services:
 
   web:
     container_name: 'tristana_web'
-    image: tristana/production:0.0.1
+    image: dockerhub.qingcloud.com/tristana/production:$VERSION
     env_file:
       - app.default.env
       - app.local.env
@@ -39,7 +39,7 @@ services:
       - '443:443'
 
   app: &app_base
-    image: tristana/production:0.0.1
+    image: dockerhub.qingcloud.com/tristana/production:$VERSION
     env_file:
       - app.default.env
       - app.local.env

@@ -2,4 +2,4 @@
 set -e
 
 echo "Building the production image"
-docker build -t tristana/production:0.0.1 .
+docker build -t dockerhub.qingcloud.com/tristana/production:$VERSION .

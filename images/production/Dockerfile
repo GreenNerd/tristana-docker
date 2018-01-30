@@ -11,13 +11,6 @@ RUN useradd tristana -s /bin/bash -m -U && \
 
 WORKDIR /var/www/tristana
 RUN chown -R tristana:tristana /var/www/tristana
-USER tristana
-
-COPY tristana/Gemfile* /var/www/tristana/
-
-RUN bundle config mirror.https://rubygems.org https://gems.ruby-china.org
-RUN bundle install --deployment --without test development -j4 && \
-    find /var/www/tristana/vendor/bundle -name tmp -type d -exec rm -rf {} +
 
 COPY tristana /var/www/tristana
 
